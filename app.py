@@ -3,6 +3,7 @@ import os
 from google import genai
 from gtts import gTTS
 import streamlit as st 
+import pandas as pd 
 from pypdf import PdfReader
 load_dotenv()
 api_key =os.getenv("GEMINI_API_KEY")
@@ -11,10 +12,16 @@ client=genai.Client(api_key=api_key)
 import streamlit as st 
 st.title("Edureka Capstone Project - Language Translator")
 text_to_translate =st.text_area("Enter the text you want to translate")
-uploaded_file = st.file_uploader("Or upload a text file",type=["txt","pdf"])
+uploaded_file = st.file_uploader("Or upload a text file",type=["txt","pdf","csv","xlsx","xls"])
 if uploaded_file is not None:
     if uploaded_file.type =="text/plain":
         text_to_translate = uploaded_file.read().decode("utf-8")
+    elif uploaded_file.type =="text/csv":
+        dataframe = pd.read_csv(uploaded_file)
+        text_to_translate =dataframe.to_string(index=False)
+    elif uploaded_file.name.endswith(".xlsx") or uploaded_file.name.endswith(".xls") : 
+        dataframe = pd.read_excel(uploaded_file)
+        text_to_translate =dataframe.to_string(index=False)
     elif uploaded_file.type =="application/pdf":
         pdf_reader = PdfReader(uploaded_file)
         text_to_translate =""
