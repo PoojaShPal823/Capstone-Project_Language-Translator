@@ -9,7 +9,7 @@ api_key =os.getenv("GEMINI_API_KEY")
 client=genai.Client(api_key=api_key)
 
 import streamlit as st 
-st.title("AI Language Translator")
+st.title("Edureka Capstone Project - Language Translator")
 text_to_translate =st.text_area("Enter the text you want to translate")
 uploaded_file = st.file_uploader("Or upload a text file",type=["txt","pdf"])
 if uploaded_file is not None:
