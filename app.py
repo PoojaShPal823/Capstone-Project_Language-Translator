@@ -36,7 +36,7 @@ target_language =  st.selectbox(
 language_codes ={"Spanish": "es","French": "fr", "Hindi" : "hi", "German": "de", "Italian": "it"}
 if st.button("Translate"):
   response =client.models.generate_content(
-    model="gemini-2.5-flash-lite",
+    model="gemini-3.1-flash-lite",
     contents=f"Translate the following text into{target_language}. Return only the translated text, with no explanation, no transliteration, and no extra words:{text_to_translate}")
   st.write(response.text)
   tts = gTTS(text=response.text,lang=language_codes[target_language])
